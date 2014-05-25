@@ -4,6 +4,7 @@ var numRows = 16;
 var numCols = 16;
 var width = 600 / numRows - 0.01;
 var height = 600 / numCols - 0.01;
+var mode = "pen";
 
 $(document).ready(function() {
 	makeGrid();
@@ -24,7 +25,11 @@ function makeGrid() {
 }
 
 $(document).on('mouseenter', '.square', function() {
-	$(this).css('background-color', 'black');
+	if (mode === "pen") {
+		$(this).css('background-color', 'black');
+	} else if (mode === "random") {
+		$(this).css('background-color', getRandomColor());
+	}
 });
 
 $(document).on('mouseleave', '.square', function() {
@@ -41,4 +46,22 @@ function reset() {
 	height = 600 / numCols - 0.01;
 	$('.square').css('height', height + 'px');
 	$('.square').css('width', width + 'px');
+}
+
+function setRandom() {
+	mode = "random";
+}
+
+function setPen() {
+	mode = "pen";
+}
+
+function getRandomColor() {
+	var letters = '0123456789ABCDEF'.split('');
+	var color = '#';
+  for (var i = 0; i < 6; i++ ) {
+		color += letters[Math.floor(Math.random() * 16)];
+	}
+
+	return color;
 }
