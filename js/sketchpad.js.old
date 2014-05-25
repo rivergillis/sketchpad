@@ -1,0 +1,42 @@
+var square = '<div class="square ';
+var divsToAppend;
+var numRows = 16;
+var numCols = 16;
+var size = 600 / numRows;
+
+$(document).ready(function() {
+	makeGrid();
+});
+
+function makeGrid() {
+	var divsToAppend = "";
+	for (i = 0; i < numCols; i++) {
+		divsToAppend += "<div class='row'>";
+		for (p = 0; p < numRows; p++) {
+			divsToAppend += square + i + '"></div>';
+		}
+		divsToAppend += "</div>";
+	}
+	$('#grid').append(divsToAppend);
+	$('.square').css('height', size + 'px');
+	$('.square').css('width', size + 'px');
+}
+
+$(document).on('mouseenter', '.square', function() {
+	$(this).css('background-color', 'black');
+});
+
+$(document).on('mouseleave', '.square', function() {
+
+});
+
+function reset() {
+	$('.square').remove();
+	$('.row').remove();
+	numRows = prompt("Please enter the number of rows");
+	numCols = prompt("Please enter the number of columns");
+	makeGrid();
+	var size = 600 / numRows - 0.01;
+	$('.square').css('height', size + 'px');
+	$('.square').css('width', size + 'px');
+}
